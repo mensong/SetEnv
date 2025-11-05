@@ -234,7 +234,7 @@ int ProcessWinXP(const string& szName, string& szValue, bool bAddValue, bool bSy
 
 		// Pre-process the string (i.e. is it expanded or dynamic)
 		// Is this an expanded string ?
-	if(szValue[0] == '%')
+	if(iLen > 0 && szValue[0] == '%')
 	{
 		szValue = szValue.substr(1, szValue.length() - 1); // Remove the % character
 		bExpandedString = true;
@@ -366,7 +366,7 @@ int ProcessWinXP(const string& szName, string& szValue, bool bAddValue, bool bSy
 	}
 
 		// Tell the system that we have changed a setting (can take 5 seconds to return)
-	DWORD dwReturnValue = 0;
+	DWORD_PTR dwReturnValue = 0;
 	SendMessageTimeout(HWND_BROADCAST, WM_SETTINGCHANGE, 0, (LPARAM) "Environment", SMTO_ABORTIFHUNG, 5000, &dwReturnValue);
 
 	delete [] pszRegkey; pszRegkey = NULL;
